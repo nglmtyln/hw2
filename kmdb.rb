@@ -272,17 +272,14 @@ new_role.save
 puts "Movies"
 puts "======"
 
-# all_movies is an array of hashes
+# all_movies is an array of hashes, the capital M Movie is a table we're calling
 all_movies = Movie.all
 
-# capital M Movie is a table
-# puts all_movies.inspect
-
 # for singular in plural
-
 for movie in all_movies
 
     # we need to convert studio id # to text
+    # even thought we're doing a loop for movies, we can still reference other tables, we do movie["studio_id"] because we do not know the # for each
     studio = Studio.find_by({"id" => movie["studio_id"]})
     studio_name = studio["name"]
     puts "#{movie["title"]} #{movie["year_released"]} #{movie["rated"]} #{studio_name}"
@@ -296,7 +293,21 @@ end
 puts ""
 puts "Top Cast"
 puts "========"
-puts ""
+
+all_roles = Role.all
+
+for role in all_roles
+    movie = Movie.find_by({"id" => role["movie_id"]})
+    movie_name = movie["title"]
+
+    actor = Actor.find_by({"id" => role["actor_id"]})
+    actor_name = actor["name"]
+
+
+    puts "#{movie_name.inspect} #{actor_name.inspect} #{role["character_name"]}"
+    
+end
+
 
 # Query the cast data and loop through the results to display the cast output for each movie.
 # TODO!
