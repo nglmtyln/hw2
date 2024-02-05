@@ -109,7 +109,7 @@ new_movie["year_released"] = 2008
 new_movie["rated"] = "PG-13"
 new_movie["studio_id"] = warner_bros["id"]
 new_movie.save
-dark_knight = Movie.find_by({"title" => "Dark Knight"})
+dark_knight = Movie.find_by({"title" => "The Dark Knight"})
 
 new_movie = Movie.new
 new_movie["title"] = "The Dark Knight Rises"
@@ -117,7 +117,7 @@ new_movie["year_released"] = 2012
 new_movie["rated"] = "PG-13"
 new_movie["studio_id"] = warner_bros["id"]
 new_movie.save
-dark_knight_rises = Movie.find_by({"title" => "Dark Knight Rises"})
+dark_knight_rises = Movie.find_by({"title" => "The Dark Knight Rises"})
 
 new_actor = Actor.new
 new_actor["name"] = "Christian Bale"
@@ -271,8 +271,23 @@ new_role.save
 # Prints a header for the movies output
 puts "Movies"
 puts "======"
-for movies in Movie
-    puts 
+
+# all_movies is an array of hashes
+all_movies = Movie.all
+
+# capital M Movie is a table
+# puts all_movies.inspect
+
+# for singular in plural
+
+for movie in all_movies
+
+    # we need to convert studio id # to text
+    studio = Studio.find_by({"id" => movie["studio_id"]})
+    studio_name = studio["name"]
+    puts "#{movie["title"]} #{movie["year_released"]} #{movie["rated"]} #{studio_name}"
+   
+end
 
 # Query the movies data and loop through the results to display the movies output.
 # TODO!
